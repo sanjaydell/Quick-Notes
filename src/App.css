@@ -1,6 +1,7 @@
 .App {
   margin: 0rem;
-  display: inline-flex;
+  display: flex;
   padding: 1rem;
   padding-top: 1rem;
+  justify-content: center;
 }
