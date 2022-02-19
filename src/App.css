@@ -1,7 +1,19 @@
 .App {
-  margin: 0rem;
-  display: flex;
+  margin: 0;
+}
+
+.header {
+  top: 0;
+  background-color: red;
+  height: 60px;
+}
+
+.card-grid {
   padding: 1rem;
   padding-top: 1rem;
   justify-content: center;
+  display: grid;
+  grid-template-columns: repeat(4, 50vh);
+  grid-template-rows: repeat(2, 30vw);
+  grid-gap: 15px;
 }
