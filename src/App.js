@@ -1,69 +1,86 @@
-import React, { useEffect, useState } from 'react'
-import './app.css'
-import { db } from './firebase-config'
-import { collection, getDocs, addDoc, deleteDoc, doc } from 'firebase/firestore'
-import Card from './Card'
-import NewCard from './NewCard'
-import EditCard from './EditCard'
+import React, { useState } from 'react'
+import {
+  createUserWithEmailAndPassword,
+  onAuthStateChanged,
+  signOut,
+  signInWithEmailAndPassword
+ } from 'firebase/auth'
+import { auth } from './firebase-config'
+import Home from './Home'
+import Login from './Login'
+import SignUp from './SignUp'
 
-function App() {
-  const [notes, setNotes] = useState()
-  const [newTitle, setNewTitle] = useState('')
-  const [newNote, setNewNote] = useState('')
-  const cardColors = ['success', 'primary', 'warning', 'info', 'danger', 'dark']
-  const [addNewNote, setAddNewNote] = useState(false)
-  const notesCollectionRef = collection(db, '1')
+function App () {
+  const [registerEmail, setRegisterEmail] = useState('')
+  const [registerPassword, setRegisterPassword] = useState('')
+  const [loginEmail, setLoginEmail] = useState('')
+  const [loginPassword, setLoginPassword] = useState('')
 
-  const createNote = async () => {
-    await addDoc(notesCollectionRef, {title: newTitle, note: newNote, color: Math.floor(Math.random() * 6)})
-    setAddNewNote(false)
-  }
+  const [isLogin, setIsLogin] = useState(true)
+  const [user, setUser] = useState()
 
-  const deleteNote = async (id) => {
-    const noteDoc = doc(db, '1', id)
-    await deleteDoc(noteDoc)
-  }
+  onAuthStateChanged(auth, (currentUser) => {
+    setUser(currentUser)
+  })
 
-  useEffect(() => {
-    const getNotes = async () => {
-      const data = await getDocs(notesCollectionRef)
-      setNotes(data.docs.map((doc) => ({ ...doc.data(), id: doc.id})))
+  const register = async () => {
+    try {
+      const user = await createUserWithEmailAndPassword(
+        auth,
+        registerEmail,
+        registerPassword
+      )
+      console.log(user)
+    }  catch (err) {
+      console.log(err.message)
     }
-    getNotes()
-  }, [addNewNote])
+
+  }
+
+  const login = async () => {
+    try {
+      const user = await signInWithEmailAndPassword(
+        auth,
+        loginEmail,
+        loginPassword
+      )
+      console.log(user)
+    }  catch (err) {
+      console.log(err.message)
+    }
+    
+  }
+
+  const logout = async () => {
+    await signOut(auth)
+  }
 
   return (
-    <div className='App'>
-      <div className='header'>
-        sanjay
-      </div>
-      <div className='card-grid'>
-        {notes && notes.map((data) => {
-          return (
-            <Card
-              color={cardColors[data.color]}
-              id={data.id}
-              title={data.title}
-              time='' note={data.note}
-              onDelete={deleteNote}
-              />
-          )
-        })}
-        {addNewNote && (
-          <>
-            <EditCard
-              color={cardColors[Math.floor(Math.random() * 6)]}
-              onTitleChange={setNewTitle}
-              onNoteChange={setNewNote}
-              onClick={createNote}
-            />
-          </>
-          )
+    <>
+    {user ?
+      <Home /> : (
+        <>
+        {isLogin ?
+          <Login
+            onEmailChange={setLoginEmail}
+            onPasswordChange={setLoginPassword}
+            onLoginClick={login}
+            onRegisterClick={setIsLogin}
+            onLogoutClick={logout}
+          /> :
+          <SignUp
+            onEmailChange={setRegisterEmail}
+            onPasswordChange={setRegisterPassword}
+            onRegisterClick={register}
+            onLoginClick={setIsLogin}
+            onLogoutClick={logout}
+          />
         }
-        <NewCard onClick={setAddNewNote}/>
-      </div>
-    </div>
+        </>
+      )
+    }
+    </>
   )
 }
 
-export default App;
+export default App

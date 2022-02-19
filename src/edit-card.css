@@ -1,13 +1,41 @@
-.delete {
-  display: none;
-}
-
-.card:hover .delete {
-  display: flex;
-}
-
 .edit-card-header {
-  opacity: 0.4;
+  display: flex;
   padding-left: 15px;
   padding-top: 10px;
+}
+
+.edit-card-header > input {
+  width: 200px;
+  opacity: 0.4;
+  border-radius: 8px;
+  font-weight: bold;
+  border: none;
+}
+
+.delete-edit-card {
+  padding-left: 8px;
+  float: right;
+}
+
+.card-text-area {
+  width: 90%;
+  height: 6.5rem;
+  opacity: 0.4;
+  border-radius: 8px;
+  font-weight: bold;
+  padding-bottom: 5px;
+}
+
+.edit-card-body {
+  padding-top: 10px;
+  text-align: center;
+}
+
+.edit-card-body > button {
+  background-color: white;
+  color: blue;
+  font-weight: bold;
+  border-radius: 8px;
+  border: none;
+  opacity: 0.8;
 }
