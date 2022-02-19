@@ -1,0 +1,13 @@
+.delete {
+  display: none;
+}
+
+.card:hover .delete {
+  display: flex;
+}
+
+.edit-card-header {
+  opacity: 0.4;
+  padding-left: 15px;
+  padding-top: 10px;
+}

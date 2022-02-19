@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import './app.css'
 import { db } from './firebase-config'
-import { collection, getDocs, addDoc } from 'firebase/firestore'
-// import * as bootstrap from 'bootstrap'
+import { collection, getDocs, addDoc, deleteDoc, doc } from 'firebase/firestore'
 import Card from './Card'
 import NewCard from './NewCard'
 import EditCard from './EditCard'
@@ -20,14 +19,19 @@ function App() {
     setAddNewNote(false)
   }
 
+  const deleteNote = async (id) => {
+    const noteDoc = doc(db, '1', id)
+    await deleteDoc(noteDoc)
+  }
+
   useEffect(() => {
     const getNotes = async () => {
       const data = await getDocs(notesCollectionRef)
       setNotes(data.docs.map((doc) => ({ ...doc.data(), id: doc.id})))
     }
-
     getNotes()
   }, [addNewNote])
+
   return (
     <div className='App'>
       <div className='header'>
@@ -35,7 +39,15 @@ function App() {
       </div>
       <div className='card-grid'>
         {notes && notes.map((data) => {
-          return (<Card color={cardColors[data.color]} title={data.title} time='' note={data.note}/>)
+          return (
+            <Card
+              color={cardColors[data.color]}
+              id={data.id}
+              title={data.title}
+              time='' note={data.note}
+              onDelete={deleteNote}
+              />
+          )
         })}
         {addNewNote && (
           <>
