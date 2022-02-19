@@ -8,9 +8,7 @@ function Login({onEmailChange, onPasswordChange, onLoginClick, onRegisterClick, 
         <input type='password' placeholder='Enter Password' onChange={(event) => onPasswordChange(event.target.value)} />
         <button onClick={() => onLoginClick() }> Log-In </button>
         <button onClick={() => onRegisterClick(false) }> Register </button>
-        <button onClick={() => onLogoutClick() }> Log-out </button>
       </div>
-      
     </>
   )
 }

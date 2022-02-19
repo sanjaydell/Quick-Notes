@@ -58,7 +58,7 @@ function App () {
   return (
     <>
     {user ?
-      <Home /> : (
+      <Home onLogoutClick={logout} /> : (
         <>
         {isLogin ?
           <Login
@@ -66,14 +66,12 @@ function App () {
             onPasswordChange={setLoginPassword}
             onLoginClick={login}
             onRegisterClick={setIsLogin}
-            onLogoutClick={logout}
           /> :
           <SignUp
             onEmailChange={setRegisterEmail}
             onPasswordChange={setRegisterPassword}
             onRegisterClick={register}
             onLoginClick={setIsLogin}
-            onLogoutClick={logout}
           />
         }
         </>

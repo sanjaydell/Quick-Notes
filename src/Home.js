@@ -7,7 +7,7 @@ import NewCard from './NewCard'
 import EditCard from './EditCard'
 import Login from './Login'
 
-function Home() {
+function Home({onLogoutClick}) {
   const [notes, setNotes] = useState()
   const [isNoteUpdated, setIsNoteUpdated] = useState(false)
   const [addNewNote, setAddNewNote] = useState(false)
@@ -41,7 +41,7 @@ function Home() {
   return (
     <div className='App'>
       <div className='header'>
-        sanjay
+        <button onClick={() => onLogoutClick() }> Log-out </button>
       </div>
       <div className='card-grid'>
         {notes && notes.map((data) => {
