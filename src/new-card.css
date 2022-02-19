@@ -1,0 +1,14 @@
+
+.new-card-header {
+  color: black;
+  font-weight: bold;
+  text-align: left;
+  padding-top: 10px;
+  padding-left: 10px;
+}
+
+.card-button {
+  color: black;
+  height: 20px;
+  width: 80px;
+}
