@@ -3,7 +3,8 @@ import {
   createUserWithEmailAndPassword,
   onAuthStateChanged,
   signOut,
-  signInWithEmailAndPassword
+  signInWithEmailAndPassword,
+  signInAnonymously
  } from 'firebase/auth'
 import { auth } from './firebase-config'
 import Home from './Home'
@@ -34,7 +35,15 @@ function App () {
     }  catch (err) {
       console.log(err.message)
     }
+  }
 
+  const anonymousSignIn = async () => {
+    try {
+      const user = await signInAnonymously(auth)
+      console.log(user)
+    }  catch (err) {
+      console.log(err.message)
+    }
   }
 
   const login = async () => {
@@ -48,7 +57,6 @@ function App () {
     }  catch (err) {
       console.log(err.message)
     }
-    
   }
 
   const logout = async () => {
@@ -58,7 +66,7 @@ function App () {
   return (
     <>
     {user ?
-      <Home onLogoutClick={logout} /> : (
+      <Home onLogoutClick={logout} user={user} /> : (
         <>
         {isLogin ?
           <Login
@@ -66,12 +74,14 @@ function App () {
             onPasswordChange={setLoginPassword}
             onLoginClick={login}
             onRegisterClick={setIsLogin}
+            onGuestLoginClick={anonymousSignIn}
           /> :
           <SignUp
             onEmailChange={setRegisterEmail}
             onPasswordChange={setRegisterPassword}
             onRegisterClick={register}
             onLoginClick={setIsLogin}
+            onGuestLoginClick={anonymousSignIn}
           />
         }
         </>

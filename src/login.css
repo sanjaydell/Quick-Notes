@@ -1,0 +1,52 @@
+.login {
+  display: grid;
+  place-items: center;
+}
+
+.login-image {
+  margin-top: 40px;
+}
+
+.login-fields > input {
+  border-radius: 20px;
+  border-width: 2px;
+  border-color: black;
+  height: 50px;
+  width: 300px;
+}
+
+.login-buttons {
+  display: flex;
+  margin-top: 30px;
+  height: 50px;
+}
+
+.primary > button {
+  margin-top: 40px;
+  width: 250px;
+  font-weight: 800;
+  height: 40px;
+  border-radius: 10px;
+  border: none;
+  background-color: #3651bf;
+  color: #eff2f5;
+}
+
+.login-buttons > button {
+  width: 110px;
+  border-radius: 10px;
+  border: none;
+  background-color: #3651bf;
+  color: #eff2f5;
+  font-weight: 800;
+}
+
+.login-buttons > button:hover {
+  background-color: white;
+  color: #3651bf;
+}
+
+.primary > button:hover {
+  background-color: white;
+  color: #3651bf;
+}

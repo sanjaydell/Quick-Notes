@@ -9,7 +9,7 @@ function EditCard({color, onTitleChange, onNoteChange, onClick, onDelete}) {
       <div className='edit-card-header'>
         <input type='text' placeholder='Add Title' onChange={(event) => onTitleChange(event.target.value) }/>
         <div className='delete-edit-card'>
-          <DeleteIcon style={{ color: 'black' }} onClick={() => onDelete(false)} />
+          <DeleteIcon onClick={() => onDelete(false)} />
         </div>
       </div>
       <div className='edit-card-body'>

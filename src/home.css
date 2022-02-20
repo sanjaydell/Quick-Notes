@@ -3,9 +3,47 @@
 }
 
 .header {
+  display: flex;
   top: 0;
-  background-color: #14050f;
+  background-color: white;
+  background-blend-mode: color-burn;
   height: 60px;
+}
+
+.header-right > img {
+  height: 60px;
+}
+
+.header-left {
+  width: 100%;
+  margin-top: 10px;
+  display: flex;
+  justify-content: right;
+}
+
+.header-left > h1 {
+  padding-top: 7px;
+  color: #3651bf;
+  font-size: 20px;
+}
+
+.logout {
+  padding: 0px 20px;
+}
+
+.logout > button {
+  background-color: #3651bf;
+  color: white;
+  font-weight: 500;
+  border-radius: 5px;
+  border: none;
+  width: 80px;
+  height: 40px;
+}
+
+.logout > button:hover {
+  background-color: white;
+  color: #3651bf;
 }
 
 .card-grid {

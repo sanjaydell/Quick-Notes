@@ -9,7 +9,7 @@ function NewCard({ onClick }) {
       <div className='new-card-header'>Add a note quickly</div>
       <div className='card-body'>
         <div className='card-button' >
-          <AddCircleOutlineRoundedIcon style={{ fontSize: '80', color: 'blue' }} onClick={() => onClick(true)}/>
+          <AddCircleOutlineRoundedIcon style={{ fontSize: '80', color: 'blue' }} onClick={() => onClick()}/>
         </div>
       </div>
     </div>

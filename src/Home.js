@@ -7,19 +7,25 @@ import NewCard from './NewCard'
 import EditCard from './EditCard'
 import Login from './Login'
 
-function Home({onLogoutClick}) {
+function Home({onLogoutClick, user}) {
   const [notes, setNotes] = useState()
   const [isNoteUpdated, setIsNoteUpdated] = useState(false)
   const [addNewNote, setAddNewNote] = useState(false)
   const [newTitle, setNewTitle] = useState('')
   const [newNote, setNewNote] = useState('')
+  const [colorCode, setColorCode] = useState(0)
 
   const cardColors = ['success', 'primary', 'warning', 'info', 'danger', 'dark']
 
   const notesCollectionRef = collection(db, '1')
 
+  const addNote = () => {
+    setColorCode(colorCode + 1)
+    setAddNewNote(true)
+  }
+
   const createNote = async () => {
-    await addDoc(notesCollectionRef, {title: newTitle, note: newNote, color: Math.floor(Math.random() * 6)})
+    await addDoc(notesCollectionRef, {title: newTitle, email: user.email, note: newNote, color: colorCode % 6})
     setAddNewNote(false)
     setIsNoteUpdated(!isNoteUpdated)
   }
@@ -41,11 +47,21 @@ function Home({onLogoutClick}) {
   return (
     <div className='App'>
       <div className='header'>
-        <button onClick={() => onLogoutClick() }> Log-out </button>
+        <div className='header-right'>
+          <img src='QuickNote.png' alt='' />
+        </div>
+        <div className='header-left'>
+          <h1>{user.email}</h1>
+          <div className='logout'>
+            <button onClick={() => onLogoutClick() }> Log-out </button>
+          </div>
+        </div>
       </div>
       <div className='card-grid'>
         {notes && notes.map((data) => {
           return (
+            <>
+            {data.email === user.email &&
             <Card
               color={cardColors[data.color]}
               id={data.id}
@@ -53,12 +69,14 @@ function Home({onLogoutClick}) {
               time='' note={data.note}
               onDelete={deleteNote}
             />
+            }
+            </>
           )
         })}
         {addNewNote && (
           <>
             <EditCard
-              color=''
+              color={cardColors[colorCode % 6]}
               onTitleChange={setNewTitle}
               onNoteChange={setNewNote}
               onClick={createNote}
@@ -67,7 +85,7 @@ function Home({onLogoutClick}) {
           </>
           )
         }
-        <NewCard onClick={setAddNewNote}/>
+        <NewCard onClick={addNote}/>
       </div>
     </div>
   )
