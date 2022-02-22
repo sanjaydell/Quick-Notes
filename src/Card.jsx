@@ -1,6 +1,6 @@
 import React from 'react'
 import DeleteIcon from '@mui/icons-material/Delete'
-import './card.css'
+import './Card.css'
 
 const Card = ({color, title, time, note, id, onDelete }) => {
 return(
