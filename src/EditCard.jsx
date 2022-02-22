@@ -1,5 +1,5 @@
 import React from 'react'
-import DeleteIcon from '@mui/icons-material/Delete';
+import DeleteIcon from '@mui/icons-material/Delete'
 import './edit-card.css'
 
 function EditCard({color, onTitleChange, onNoteChange, onClick, onDelete}) {
