@@ -5,7 +5,6 @@ import { collection, getDocs, addDoc, deleteDoc, doc } from 'firebase/firestore'
 import Card from './Card'
 import NewCard from './NewCard'
 import EditCard from './EditCard'
-import Login from './Login'
 
 function Home({onLogoutClick, user}) {
   const [notes, setNotes] = useState()
