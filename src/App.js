@@ -18,7 +18,6 @@ function App () {
   const [registerName, setRegisterName] = useState('')
   const [loginEmail, setLoginEmail] = useState('')
   const [loginPassword, setLoginPassword] = useState('')
-  console.log(registerName)
   const [isLogin, setIsLogin] = useState(true)
   const [user, setUser] = useState()
 
@@ -38,14 +37,6 @@ function App () {
       }).catch((error) => {
         console.log(error)
       })
-      // .then(function(result) {
-      //   return updateProfile( auth, {
-      //     displayName: String(registerName)
-      //   })
-      // }).catch(function(error) {
-      //   console.log(error);
-      // })
-      console.log(user)
     }  catch (err) {
       console.log(err.message)
     }
@@ -54,7 +45,6 @@ function App () {
   const anonymousSignIn = async () => {
     try {
       const user = await signInAnonymously(auth)
-      console.log(user)
     }  catch (err) {
       console.log(err.message)
     }
@@ -67,7 +57,6 @@ function App () {
         loginEmail,
         loginPassword
       )
-      console.log(user)
     }  catch (err) {
       console.log(err.message)
     }

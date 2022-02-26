@@ -1,24 +1,26 @@
 import React, { useEffect, useState } from 'react'
 import './home.css'
 import { db } from './firebase-config'
-import { collection, getDocs, addDoc, deleteDoc, doc } from 'firebase/firestore'
+import { collection, getDocs, addDoc, deleteDoc, doc, setDoc } from 'firebase/firestore'
 import Card from './Card'
 import NewCard from './NewCard'
 import EditCard from './EditCard'
 import { capitalize } from '@mui/material'
 
 function Home({onLogoutClick, user}) {
-  console.log(user)
   const [notes, setNotes] = useState()
   const [isNoteUpdated, setIsNoteUpdated] = useState(false)
   const [addNewNote, setAddNewNote] = useState(false)
   const [newTitle, setNewTitle] = useState('')
   const [newNote, setNewNote] = useState('')
   const [colorCode, setColorCode] = useState(0)
+  const today = new Date()
+  const documentDate = 'sanjays'+today.getFullYear()+''+today.getMonth()+today.getDate()+today.getHours()+today.getMinutes()+today.getSeconds()
 
   const cardColors = ['success', 'primary', 'warning', 'info', 'danger', 'dark']
 
   const notesCollectionRef = collection(db, '1')
+  const notesDocRef = doc(db, '1', documentDate)
 
   const addNote = () => {
     setColorCode(colorCode + 1)
@@ -26,7 +28,8 @@ function Home({onLogoutClick, user}) {
   }
 
   const createNote = async () => {
-    await addDoc(notesCollectionRef, {title: newTitle, email: user.email, note: newNote, color: colorCode % 6})
+    await setDoc(notesDocRef, {title: newTitle, email: user.email, note: newNote, color: colorCode % 6})
+    // await addDoc(notesCollectionRef, {title: newTitle, email: user.email, note: newNote, color: colorCode % 6})
     setAddNewNote(false)
     setIsNoteUpdated(!isNoteUpdated)
   }
@@ -52,7 +55,7 @@ function Home({onLogoutClick, user}) {
           <img src='QuickNote.png' alt='' />
         </div>
         <div className='header-left'>
-          <h1>{user.email === null ? 'Guest' : capitalize(user?.displayName)}</h1>
+          <h1>{user.email === null ? 'Guest' : user?.displayName}</h1>
           <div className='logout'>
             <button onClick={() => onLogoutClick() }> Log-out </button>
           </div>
@@ -64,6 +67,7 @@ function Home({onLogoutClick, user}) {
             <>
             {data.email === user.email &&
             <Card
+              key={data.id}
               color={cardColors[data.color]}
               id={data.id}
               title={data.title}
