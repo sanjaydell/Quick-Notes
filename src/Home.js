@@ -5,8 +5,10 @@ import { collection, getDocs, addDoc, deleteDoc, doc } from 'firebase/firestore'
 import Card from './Card'
 import NewCard from './NewCard'
 import EditCard from './EditCard'
+import { capitalize } from '@mui/material'
 
 function Home({onLogoutClick, user}) {
+  console.log(user)
   const [notes, setNotes] = useState()
   const [isNoteUpdated, setIsNoteUpdated] = useState(false)
   const [addNewNote, setAddNewNote] = useState(false)
@@ -50,7 +52,7 @@ function Home({onLogoutClick, user}) {
           <img src='QuickNote.png' alt='' />
         </div>
         <div className='header-left'>
-          <h1>{user.email}</h1>
+          <h1>{user.email === null ? 'Guest' : capitalize(user?.displayName)}</h1>
           <div className='logout'>
             <button onClick={() => onLogoutClick() }> Log-out </button>
           </div>

@@ -4,7 +4,8 @@ import {
   onAuthStateChanged,
   signOut,
   signInWithEmailAndPassword,
-  signInAnonymously
+  signInAnonymously,
+  updateProfile
  } from 'firebase/auth'
 import { auth } from './firebase-config'
 import Home from './Home'
@@ -14,9 +15,10 @@ import SignUp from './SignUp'
 function App () {
   const [registerEmail, setRegisterEmail] = useState('')
   const [registerPassword, setRegisterPassword] = useState('')
+  const [registerName, setRegisterName] = useState('')
   const [loginEmail, setLoginEmail] = useState('')
   const [loginPassword, setLoginPassword] = useState('')
-
+  console.log(registerName)
   const [isLogin, setIsLogin] = useState(true)
   const [user, setUser] = useState()
 
@@ -31,6 +33,18 @@ function App () {
         registerEmail,
         registerPassword
       )
+      const userProfile = updateProfile(auth.currentUser, {
+        displayName: String(registerName),
+      }).catch((error) => {
+        console.log(error)
+      })
+      // .then(function(result) {
+      //   return updateProfile( auth, {
+      //     displayName: String(registerName)
+      //   })
+      // }).catch(function(error) {
+      //   console.log(error);
+      // })
       console.log(user)
     }  catch (err) {
       console.log(err.message)
@@ -82,6 +96,7 @@ function App () {
             onRegisterClick={register}
             onLoginClick={setIsLogin}
             onGuestLoginClick={anonymousSignIn}
+            onNameChange={setRegisterName}
           />
         }
         </>

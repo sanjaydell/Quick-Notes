@@ -1,4 +1,6 @@
 .card {
+  margin-left: auto;
+  margin-right: auto;
   width: 16rem;
   height: 12rem;
   border-radius: 14px;

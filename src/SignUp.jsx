@@ -1,6 +1,6 @@
 import React from 'react'
 
-function SignUp({onEmailChange, onPasswordChange, onRegisterClick, onLoginClick, onGuestLoginClick}) {
+function SignUp({onEmailChange, onPasswordChange, onRegisterClick, onLoginClick, onGuestLoginClick, onNameChange}) {
   return (
     <div className='login'>
       <div className='login-image'>
@@ -11,6 +11,9 @@ function SignUp({onEmailChange, onPasswordChange, onRegisterClick, onLoginClick,
         <br />
         <br />
         <input type='password' placeholder='  Enter Password' onChange={(event) => onPasswordChange(event.target.value)} />
+        <br />
+        <br />
+        <input type='text' placeholder='  Enter your Name' onChange={(event) => onNameChange(event.target.value)} />
       </div>
       <div className='primary'>
       <button onClick={() => onRegisterClick() }> Register </button>
