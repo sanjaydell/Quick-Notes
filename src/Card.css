@@ -1,8 +1,8 @@
 .card {
   margin-left: auto;
   margin-right: auto;
-  width: 16rem;
   min-height: 12rem;
+  width: 16rem;
   height: auto;
   border-radius: 14px;
   background: #fff;
@@ -46,4 +46,10 @@
   vertical-align: center;
   text-align: center;
   font-weight: 500;
+}
+
+@media only screen and (max-width: 500px) {
+  .card {
+    min-height: 0;
+  }
 }
